@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: diplom_db
+    restart: always
+    environment:
+      POSTGRES_USER: diplom
+      POSTGRES_PASSWORD: diplomArael2711
+      POSTGRES_DB: diplom_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      POSTGRES_USER: diplom
+      POSTGRES_PASSWORD: diplomArael2711
+      POSTGRES_DB: diplom_db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./diplom-vue
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

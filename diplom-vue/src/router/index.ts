@@ -5,6 +5,7 @@ import MyTaskListPage from '@/views/MyTaskListPage.vue'
 import ActivListPage from '@/views/ActivListPage.vue'
 import KnowledgeBasePage from '@/views/KnowledgeBasePage.vue'
 import AnswerPage from '@/views/AnswerPage.vue'
+import SettingsPage from '@/views/SettingsPage.vue'
 
 import AuthRoutes from './auth'
 
@@ -40,6 +41,11 @@ const routes: RouteRecordRaw[] = [
 		path: '/answer',
 		name: 'AnswerPage',
 		component: AnswerPage,
+	},
+	{
+		path: '/settings',
+		name: 'Settings',
+		component: SettingsPage,
 	},
 ]
 

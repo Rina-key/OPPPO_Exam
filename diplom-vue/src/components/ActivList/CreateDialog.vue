@@ -13,26 +13,34 @@
             <v-col cols="12">
               <v-text-field v-model="form.name" label="ФИО" />
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="6">
               <v-text-field v-model="form.group" label="Группа" />
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="6">
               <v-text-field v-model="form.phone" label="Телефон" mask="+7 (###) ###-##-##" />
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12">
               <v-text-field v-model="form.email" label="Email" type="email" :rules="[v => !v || /.+@.+\..+/.test(v) || 'Некорректный email']" />
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="6">
               <v-text-field v-model="form.birth" label="Дата рождения" type="date" />
             </v-col>
-            <v-col cols="12" md="4">
-              <v-select v-model="form.education" label="Форма обучения" :items="['Очная', 'Заочная', 'Очно-заочная']" />
+            <v-col cols="12" md="6">
+              <v-select v-model="form.education" label="Форма обучения" :items="['Платная', 'Бюджетная']" />
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="6">
               <v-text-field v-model="form.vk" label="ВКонтакте" placeholder="https://vk.com/id..." />
             </v-col>
-            <v-col cols="12" md="4">
-              <v-text-field v-model="form.tg" label="Telegram" placeholder="https://t.me/..." />
+            <v-col cols="12" md="6">
+              <v-text-field v-model="form.tg" label="ТГ" placeholder="https://vk.com/id..." />
+            </v-col>
+            <v-col cols="12" md="12" sm="12"		>
+              <v-select
+                label="Роль"
+                :items="['Руководитель', 'Активист медиа отдела', 'Активист культурно-массового отдела', 'Активист информационного отдела']"
+                chips multiple
+              >
+            </v-select>
             </v-col>
           </v-row>
         </v-form>
@@ -41,8 +49,9 @@
       <v-divider />
       <v-card-actions>
         <v-spacer />
-        <v-btn text="Отмена" variant="plain" :disabled="loading" @click="cancel" />
         <v-btn color="primary" text="Сохранить" variant="tonal" :loading="loading" @click="save" />
+        <v-btn text="Отмена" variant="plain" :disabled="loading" @click="cancel" />
+        
       </v-card-actions>
     </v-card>
   </v-dialog>

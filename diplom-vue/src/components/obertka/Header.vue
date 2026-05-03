@@ -7,10 +7,10 @@
       @click.stop="toggleDrawer"
     ></v-app-bar-nav-icon>
 
-    <v-btn 
-      @click="onHome"
-      color="white" 
-    >ПРОЕКТ+</v-btn>
+      <v-btn @click="onHome" color="white" class="text-none">
+        <img src="/logo_pos_ikit_vektor.ico" alt="" class="btn-icon mr-2"/>
+        ПРОЕКТ+
+      </v-btn>
   </v-app-bar>
 
   <v-navigation-drawer
@@ -93,7 +93,7 @@
             title="Настройки" 
             link 
             :class="{ 'is-active': isRouteActive('/settings') }"
-            @click="onSettingsClick" 
+            @click="onSettings" 
           />
           <v-list-item
             v-if="isAuthenticated"
@@ -175,6 +175,7 @@ const onHome = () => router.push({ path: '/' })
 const onEvent = () => router.push({ path: '/event' })
 const onBase = () => router.push({ path: '/knowledge' })
 const onAnswer = () => router.push({ path: '/answer' })
+const onSettings = () => router.push({ path: '/settings' })
 
 const onSettingsClick = () => {
   alert('Настройки')
@@ -272,4 +273,11 @@ onBeforeUnmount(() => {
   width: 100%;
   padding-bottom: 1rem;
 }
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 </style>

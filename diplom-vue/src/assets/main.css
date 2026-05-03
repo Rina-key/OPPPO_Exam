@@ -33,3 +33,16 @@ a,
     padding: 0 2rem;
   }
 }
+
+/* Global table header styling for Vuetify tables */
+.v-data-table thead th,
+.v-data-table-server thead th,
+.table-3d th {
+  background: linear-gradient(135deg, #2D32FF 0%, #29b6f6 100%) !important;
+  color: white !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border: none !important;
+}

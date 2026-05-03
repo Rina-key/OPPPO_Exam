@@ -26,7 +26,7 @@ apiClient.interceptors.response.use(
 			// Токен истек — очищаем и редиректим на логин
 			localStorage.removeItem('token')
 			localStorage.removeItem('token_type')
-			window.location.href = '/login'
+			window.location.href = '/entrance'
 		}
 		return Promise.reject(error)
 	}

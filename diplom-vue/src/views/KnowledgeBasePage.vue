@@ -1,9 +1,10 @@
 <template>
   <v-container>
-  Бла бла
+    <PartFirst />
   </v-container>
 </template>
 
 <script setup lang="ts">
-import ActivList from '@/components/ActivList/ActivList.vue';
+import PartFirst from '@/components/BazaZnaniay/PartFirst.vue';
+
 </script>

@@ -1,6 +1,7 @@
 <template>
-  <div class="d-flex flex-column fill-height">
-    <v-main class="fill-height d-flex align-center justify-center">
+  <div class="entrance-wrapper d-flex align-center justify-center">
+    <!-- v-main оставлен для совместимости с макетом, но его отступы обнулены -->
+    <v-main class="entrance-main d-flex align-center justify-center">
       <EntranceForm />
     </v-main>
   </div>
@@ -18,4 +19,20 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.entrance-wrapper {
+  background-image: url('/FonEntrence.jpeg');
+  background-size: cover;       /* Растягивает фон на весь экран без зазоров */
+  background-position: center;  /* Центрирует изображение */
+  background-repeat: no-repeat;
+  width: 100vw;                 /* Ширина = ширине окна */
+  min-height: 100vh;            /* Минимальная высота = высоте окна */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+.entrance-main {
+  padding: 0 !important;
+}
+</style>

@@ -1,125 +1,129 @@
 <template>
+  <v-container 
+    style="background-color:#ffffff;" 
+    class="rounded-lg mt-6 py-4"
+  >
   <!-- Заголовок -->
-  <div class="table-header d-flex justify-space-between align-center mb-4">
-    <h2 class="text-h5 font-weight-bold text-primary">Результаты тестирования</h2>
-    <v-btn 
-      variant="outlined" 
-      color="primary" 
-      size="small"
-      :loading="loading"
-      @click="loadItems"
-    >
-      🔄 Обновить
-    </v-btn>
-  </div>
+      <div class="table-header d-flex justify-space-between align-center mb-4">
+        <h2 class="text-h5 font-weight-bold text-primary">Результаты тестирования</h2>
+        <v-btn 
+          variant="outlined" 
+          color="primary" 
+          size="small"
+          :loading="loading"
+          @click="loadItems"
+        >
+          🔄 Обновить
+        </v-btn>
+      </div>
 
-  <!-- Поиск -->
-  <v-text-field
-    v-model="search"
-    prepend-inner-icon="mdi-magnify"
-    label="Поиск по тесту или ФИО"
-    variant="outlined"
-    density="compact"
-    class="mb-4"
-    clearable
-  />
+      <!-- Поиск -->
+      <v-text-field
+        v-model="search"
+        prepend-inner-icon="mdi-magnify"
+        label="Поиск по тесту или ФИО"
+        variant="outlined"
+        density="compact"
+        class="mb-4"
+        clearable
+      />
 
-  <!-- Загрузка -->
-  <v-progress-linear v-if="loading && !serverItems.length" indeterminate color="primary" class="mb-4" />
+      <!-- Загрузка -->
+      <v-progress-linear v-if="loading && !serverItems.length" indeterminate color="primary" class="mb-4" />
 
-  <!-- Пусто -->
-  <v-alert v-else-if="!loading && !filteredItems.length" type="info" variant="tonal">
-    Нет данных для отображения
-  </v-alert>
+      <!-- Пусто -->
+      <v-alert v-else-if="!loading && !filteredItems.length" type="info" variant="tonal">
+        Нет данных для отображения
+      </v-alert>
 
-  <!-- Таблица -->
-  <v-expansion-panels v-else v-model="expandedPanels" multiple class="table-3d-wrapper">
-    <v-expansion-panel
-      v-for="item in paginatedItems"
-      :key="item.id"
-      :value="item.id"
-      class="expansion-panel-item"
-    >
-      <v-expansion-panel-title class="panel-title">
-        <v-row no-gutters align="center" class="w-100">
-          <v-col cols="5" class="text-truncate pr-2">
-            <strong>{{ item.name }}</strong>
-          </v-col>
-          <v-col cols="5" class="text-truncate">
-            {{ item.fio }}
-          </v-col>
-          <v-col cols="2" class="text-center">
-            <div class="action-buttons">
-              <v-btn
-                icon="mdi-delete"
-                size="small"
-                variant="text"
-                color="error"
-                @click.stop="openDeleteDialog(item)"
-                title="Удалить"
-              />
+      <!-- Таблица -->
+      <v-expansion-panels v-else v-model="expandedPanels" multiple class="table-3d-wrapper">
+        <v-expansion-panel
+          v-for="item in paginatedItems"
+          :key="item.id"
+          :value="item.id"
+          class="expansion-panel-item"
+        >
+          <v-expansion-panel-title class="panel-title">
+            <v-row no-gutters align="center" class="w-100">
+              <v-col cols="5" class="text-truncate pr-2">
+                <strong>{{ item.name }}</strong>
+              </v-col>
+              <v-col cols="5" class="text-truncate">
+                {{ item.fio }}
+              </v-col>
+              <v-col cols="2" class="text-center">
+                <div class="action-buttons">
+                  <v-btn
+                    icon="mdi-delete"
+                    size="small"
+                    variant="text"
+                    color="error"
+                    @click.stop="openDeleteDialog(item)"
+                    title="Удалить"
+                  />
+                </div>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-title>
+
+          <v-expansion-panel-text>
+            <div class="inner-table-wrapper">
+              <v-table density="compact" class="inner-table">
+                <thead>
+                  <tr>
+                    <th class="text-left">Вопрос</th>
+                    <th class="text-center">Ответ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(qa, idx) in item.answers" :key="idx">
+                    <td class="font-weight-medium">{{ qa.question }}</td>
+                    <td class="text-center">
+                      <span :class="`score-${getScoreClass(qa.answer)}`">
+                        {{ qa.answer }}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr v-if="item.answers.length === 0">
+                    <td colspan="2" class="text-center text-grey">Нет данных</td>
+                  </tr>
+                </tbody>
+              </v-table>
+              
+              <v-divider class="my-3" />
+              <v-row dense>
+                <v-col cols="12" md="6">
+                  <small class="text-grey-darken-1">
+                    <v-icon size="small" class="mr-1">mdi-calendar</v-icon>
+                    Дата: {{ formatDate(item.created_at) }}
+                  </small>
+                </v-col>
+                <!-- <v-col cols="12" md="6">
+                  <small class="text-grey-darken-1">
+                    <v-icon size="small" class="mr-1">mdi-database</v-icon>
+                    ID отправки: {{ item.id }}
+                  </small>
+                </v-col> -->
+              </v-row>
             </div>
-          </v-col>
-        </v-row>
-      </v-expansion-panel-title>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
-      <v-expansion-panel-text>
-        <div class="inner-table-wrapper">
-          <v-table density="compact" class="inner-table">
-            <thead>
-              <tr>
-                <th class="text-left">Вопрос</th>
-                <th class="text-center">Ответ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(qa, idx) in item.answers" :key="idx">
-                <td class="font-weight-medium">{{ qa.question }}</td>
-                <td class="text-center">
-                  <span :class="`score-${getScoreClass(qa.answer)}`">
-                    {{ qa.answer }}
-                  </span>
-                </td>
-              </tr>
-              <tr v-if="item.answers.length === 0">
-                <td colspan="2" class="text-center text-grey">Нет данных</td>
-              </tr>
-            </tbody>
-          </v-table>
-          
-          <v-divider class="my-3" />
-          <v-row dense>
-            <v-col cols="12" md="6">
-              <small class="text-grey-darken-1">
-                <v-icon size="small" class="mr-1">mdi-calendar</v-icon>
-                Дата: {{ formatDate(item.created_at) }}
-              </small>
-            </v-col>
-            <!-- <v-col cols="12" md="6">
-              <small class="text-grey-darken-1">
-                <v-icon size="small" class="mr-1">mdi-database</v-icon>
-                ID отправки: {{ item.id }}
-              </small>
-            </v-col> -->
-          </v-row>
-        </div>
-      </v-expansion-panel-text>
-    </v-expansion-panel>
-  </v-expansion-panels>
+      <!-- Пагинация -->
+      <div class="d-flex justify-center mt-4" v-if="totalPages > 1">
+        <v-pagination
+          v-model="currentPage"
+          :length="totalPages"
+          :total-visible="7"
+          @update:model-value="onPageChange"
+        />
+      </div>
 
-  <!-- Пагинация -->
-  <div class="d-flex justify-center mt-4" v-if="totalPages > 1">
-    <v-pagination
-      v-model="currentPage"
-      :length="totalPages"
-      :total-visible="7"
-      @update:model-value="onPageChange"
-    />
-  </div>
-
-  <!-- Диалоги -->
-  <TestDeleteDialog ref="deleteDialogRef" @confirm="handleDeleteConfirm" />
-  
+      <!-- Диалоги -->
+      <TestDeleteDialog ref="deleteDialogRef" @confirm="handleDeleteConfirm" />
+  </v-container>    
 </template>
 
 <script setup lang="ts">

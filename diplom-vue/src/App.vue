@@ -2,9 +2,10 @@
   <v-app :class="{ 'app-home': route.path === '/' }">
     <div class="global-background"></div>
     <Header />
-    <v-main class="main" >
+    <v-main class="main">
       <RouterView />
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
@@ -13,15 +14,20 @@ import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 
 import Header from '@/components/obertka/Header.vue'
+import Footer from './components/obertka/Footer.vue';
 
 const route = useRoute()
 </script>
+
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
 /* Глобальный фон на весь сайт */
 .main {
   padding: 0;
   position: relative;
-   /* Размещаем основной контент поверх фона */
+  min-height: 100vh; /* Гарантируем минимальную высоту viewport */
+  font-family: 'Montserrat', sans-serif;
 }
 
 .global-background {
@@ -30,16 +36,12 @@ const route = useRoute()
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-  to left,
-  transparent 0%,
-  rgba(45, 50, 255, 0.4) 20%,
-  rgba(102, 181, 246, 0.4) 40%,
-  rgba(255, 37, 184, 0.4) 70%,
-  rgba(255, 128, 214, 0.4) 60%,
-  transparent 100%);
-filter: blur(100px);
-  z-index: 0;/*///////////*/
+  background-image: url('/Fon.jpeg');
+  background-size: cover; /* Картинка покрывает весь экран */
+  background-position: center center; /* Центрируем изображение */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Фиксируем фон при прокрутке */
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -58,7 +60,9 @@ filter: blur(100px);
   margin-top: 0 !important;
 }
 
-
-
-
+/* Гарантируем, что контент всегда выше фона */
+.v-main {
+  position: relative;
+  z-index: 1;
+}
 </style>

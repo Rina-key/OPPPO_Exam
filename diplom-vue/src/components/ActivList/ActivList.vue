@@ -92,10 +92,11 @@ const headers = [
   { title: 'Группа', key: 'group', sortable: true },
   { title: 'Телефон', key: 'phone', sortable: false },
   { title: 'Почта', key: 'email', sortable: false },
-  { title: 'Дата рождения', key: 'birth', sortable: true },
-  { title: 'Форма обучения', key: 'education', sortable: true },
+  { title: 'Дата рождения', key: 'birth', sortable: false },
+  { title: 'Форма обучения', key: 'education', sortable: false },
   { title: 'ВК', key: 'vk', sortable: false },
   { title: 'ТГ', key: 'tg', sortable: false },
+  { title: 'Роль', key: 'role', sortable: true },
   { title: 'Действия', key: 'actions', sortable: false, align: 'center', width: 120 },
 ]
 

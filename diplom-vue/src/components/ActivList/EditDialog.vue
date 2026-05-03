@@ -20,7 +20,7 @@
 				sm="12"
 				>
 				<v-text-field
-					label="ФИО*"
+					label="ФИО"
 					required
 				></v-text-field>
 				</v-col>
@@ -29,22 +29,22 @@
 			<v-row>
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
 				<v-text-field
-					label="Группа*"
+					label="Группа"
 					required
 				></v-text-field>
 				</v-col>
 
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
 				<v-text-field
-					label="Телефон*"
+					label="Телефон"
 					persistent-hint
 					required
 				></v-text-field>
@@ -54,18 +54,18 @@
 			<v-row>
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
 				<v-text-field
-					label="Почта"
+					label="Email"
 					required
 				></v-text-field>
 				</v-col>
 
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
 				<v-select
@@ -79,7 +79,7 @@
 			<v-row>
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
 				<v-text-field
@@ -91,13 +91,24 @@
 
 				<v-col
 				cols="12"
-				md="4"
+				md="6"
 				sm="6"
 				>
-				<v-text-field
-					label="Ссылка на ТГ"
-					
-				></v-text-field>
+					<v-text-field
+						label="Ссылка на ТГ"
+						
+					></v-text-field>
+				</v-col>
+				<v-col
+				cols="12"
+				md="12"
+				sm="12"
+				>
+					<v-select
+					label="Роль"
+					:items="['Руководитель', 'Активист медиа отдела', 'Активист культурно-массового отдела', 'Активист информационного отдела']"
+					chips multiple>
+					</v-select>
 				</v-col>
 			</v-row>
             
