@@ -51,6 +51,7 @@
           :class="{ 'is-active': isRouteActive('/event') }"
           @click="onEvent" 
         />
+        
         <v-list-item 
           v-if="isAuthenticated"
           prepend-icon="mdi-folder" 
